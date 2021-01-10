@@ -96,46 +96,59 @@ def calc_price():
     price_sum = []
     for record in records:
         price_sum.append(round((record[2] / record[1]) * int(price_calc.get()),2))
+    global calc_sum_label
     calc_sum_label = Label(window, text=price_sum)
-    calc_sum_label.grid(row=8, column=1, columnspan=2)
+    calc_sum_label.grid(row=9, column=1, columnspan=2)
     connection.commit()
     connection.close()
 
-item_name = Entry(window, width=30)
-item_name.grid(row=0, column=1, pady=10, padx=5)
+def clear_output():
+    connection = sqlite3.connect("inventory.db")
+    cursor = connection.cursor()
+    calc_sum_label.destroy()
+    connection.commit()
+    connection.close()
+
+item_name = Entry(window, width=35)
+item_name.grid(row=0, column=1, pady=2, sticky=W)
 item_quantity = Entry(window, width=20)
-item_quantity.grid(row=1, column=1, pady=10, padx=5)
+item_quantity.grid(row=1, column=1, pady=2, sticky=W)
 item_price = Entry(window, width=20)
-item_price.grid(row=2, column=1, pady=10, padx=5)
+item_price.grid(row=2, column=1, pady=2, sticky=W)
 select_box=Entry(window, width=20)
-select_box.grid(row=6, column=1, pady=10, padx=5)
+select_box.grid(row=6, column=1, pady=2, sticky=W)
 price_calc=Entry(window, width=20)
-price_calc.grid(row=7, column=1, pady=10, padx=5)
+price_calc.grid(row=7, column=1, pady=2, sticky=W)
 
 item_name_label = Label(window, text='Name: ')
-item_name_label.grid(row=0, column=0, pady=10)
+item_name_label.grid(row=0, column=0, pady=2, sticky=E)
 item_quantity_label = Label(window,  text='Quantity: ')
-item_quantity_label.grid(row=1, column=0, pady=10)
+item_quantity_label.grid(row=1, column=0, pady=2, sticky=E)
 item_price_label = Label(window, text ='Price($): ')
-item_price_label.grid(row=2,column=0, pady=10)
+item_price_label.grid(row=2,column=0, pady=2, sticky=E)
 select_box_label = Label(window, text="Select ID")
-select_box_label.grid(row=6, column=0, pady=10)
+select_box_label.grid(row=6, column=0, pady=2, sticky=E)
 price_calc_label = Label(window, text='Quantity for Price Sum')
-price_calc_label.grid(row=7, column=0, pady=10)
+price_calc_label.grid(row=7, column=0, pady=2, sticky=E)
+error_message = Label(text = '', fg='red')
+error_message.grid(row=12, column=1)
 
 submit_btn = Button(window, text="Add Record to Database", command=submit)
-submit_btn.grid(row=3, column=1, columnspan=2, pady=5, padx=10, ipadx=10)
+submit_btn.grid(row=3, column=1, pady=1)
 
 query_btn = Button(window, text="Show Records", command=query)
-query_btn.grid(row=4, column=1, columnspan=2, pady=5, padx=10, ipadx=10)
+query_btn.grid(row=4, column=1, pady=2)
 
 delete_btn = Button(window, text="Delete Record", command=delete)
-delete_btn.grid(row=9, column=1, columnspan=2, pady=5, padx=10, ipadx=10)
+delete_btn.grid(row=11, column=1, columnspan=2, pady=2, sticky=E)
 
 edit_btn = Button(window, text="Update Record", command=edit)
-edit_btn.grid(row=8, column=1, columnspan=2, pady=5, padx=5, ipadx=10)
+edit_btn.grid(row=10, column=1, columnspan=2, pady=2, sticky=E)
 
 calculate_price_btn = Button(window, text="Calculate Price Sum", command=calc_price)
-calculate_price_btn.grid(row=7, column=1, columnspan=2, pady=5, padx=10, ipadx=10)
+calculate_price_btn.grid(row=8, column=0, columnspan=2, pady=2)
+
+clear_output_btn = Button(window, text="Clear Output", command=clear_output)
+clear_output_btn.grid(row=8, column=1, pady=2, sticky=E)
 
 window.mainloop()
