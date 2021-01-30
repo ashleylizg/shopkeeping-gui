@@ -1,5 +1,4 @@
 import sqlite3
-from contextlib import closing
 
 connection = sqlite3.connect("inventory.db")
 cursor = connection.cursor()
