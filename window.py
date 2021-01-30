@@ -133,8 +133,6 @@ select_box_label = Label(window, text='Select ID ')
 select_box_label.grid(row=6, column=0, pady=2, sticky=E)
 price_calc_label = Label(window, text='Quantity for Price Sum ')
 price_calc_label.grid(row=7, column=0, pady=2, sticky=E)
-error_message = Label(text = '', fg='red')
-error_message.grid(row=12, column=1)
 
 submit_btn = Button(window, text="Add Record to Database", command=submit)
 submit_btn.grid(row=3, column=0, columnspan=2, pady=2)
